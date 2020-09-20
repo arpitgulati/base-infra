@@ -1,8 +1,0 @@
-.idea
-.vagrant
-*.retry
-*.swp
-.kitchen/
-.bundle
-*.pyc
-vault_pass.txt
