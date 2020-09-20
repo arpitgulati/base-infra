@@ -1,6 +1,0 @@
----
-base_path: "/deployment-config/{{ps_ssm_env}}/base"
-common_base_path: "/deployment-config/{{ps_ssm_env}}/{{ps_ssm_service}}/{{ps_ssm_server}}"
-domain_path: "{{common_base_path}}/domain"
-environment_path: "{{common_base_path}}/environment"
-service_path: "{{common_base_path}}/service"

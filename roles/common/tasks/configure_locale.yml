@@ -1,4 +1,0 @@
-- name: set locale
-  locale_gen: name="{{ locale }}" state=present
-  become: true
-  become_user: root

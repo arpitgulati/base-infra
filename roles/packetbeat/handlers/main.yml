@@ -1,6 +1,0 @@
----
-- name: restart packetbeat
-  systemd:
-    name: packetbeat
-    state: restarted
-  become: true

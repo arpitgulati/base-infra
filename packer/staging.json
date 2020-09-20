@@ -1,8 +1,0 @@
-{
-  "aws_profile": "staging",
-  "environment": "staging",
-  "aws_region": "ap-south-1",
-  "source_ami": "ami-5d055232",
-  "ancestor_ami_id": "",
-  "ami_regions": "ap-south-1"
-}

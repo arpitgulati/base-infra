@@ -1,8 +1,0 @@
-{
-  "aws_profile": "production",
-  "environment": "production",
-  "aws_region": "ap-south-1",
-  "source_ami": "ami-5d055232",
-  "ancestor_ami_id": "",
-  "ami_regions": "us-east-1"
-}

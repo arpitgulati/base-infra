@@ -1,5 +1,0 @@
-[all:vars]
-env=pre_production
-
-[local]
-127.0.0.1

@@ -1,7 +1,0 @@
----
-- name: install logzio docker container
-  shell: "/usr/bin/docker pull logzio/logzio-docker:{{ logzio_docker_version }}"
-  args:
-    executable: /bin/bash
-  become: yes
-  ignore_errors: yes

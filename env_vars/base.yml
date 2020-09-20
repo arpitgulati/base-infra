@@ -1,4 +1,0 @@
-disable_auto_update: true
-# pass ssm variable from out side as extra vars
-ssm_env: dev
-aws_region: us-east-2

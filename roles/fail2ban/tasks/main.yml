@@ -1,3 +1,0 @@
-- include: setup_fail2ban.yml
-  tags:
-    - fail2ban

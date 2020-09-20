@@ -1,5 +1,0 @@
-[all:vars]
-env=local_aws
-
-[local]
-127.0.0.1

@@ -1,5 +1,0 @@
-{
-  "instance_type": "t2.micro",
-  "ssh_username": "ubuntu",
-  "ansible_skip_tags": "vision_team_users,reco_team_users,growth_team_users,orders_team_users,hostname,common_gateway_users,beewise_team_users,common_parameter_store,docker,logzio_docker,ecs_base"
-}
