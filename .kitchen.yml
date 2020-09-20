@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: ansible_playbook
+  ansible_verbose: true
+  ansible_verbosity: 2
+  require_ruby_for_busser: false
+  require_chef_for_busser: true
+  hosts: all
+  group_vars_path: env_vars
+  ansible_inventory: inventory/dev
+  additional_copy_path: vars
+  ansible_vault_password_file: vault_pass.txt
+  ansible_extra_flags: '--skip-tags=hostname'
+
+platforms:
+  - name: ubuntu-16.04
+    driver_config:
+      box: bento/ubuntu-16.04
+
+suites:
+  - name: default

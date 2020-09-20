@@ -1,0 +1,5 @@
+[all:vars]
+env=bastion
+
+[local]
+common-gateway-1.addsale.com ansible_python_interpreter=/usr/bin/python3

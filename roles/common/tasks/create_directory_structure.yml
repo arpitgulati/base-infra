@@ -1,0 +1,18 @@
+---
+  - name: Create base logs directory
+    become: true
+    file:
+      path: "{{ logs_base_path }}"
+      state: directory
+      owner: "{{ fynd_user_name }}"
+      group: "{{ fynd_user_name }}"
+      mode: 0775
+
+  - name: Create directory to store CA certs
+    become: true
+    file:
+      path: "{{ logzio_ca_certs_path }}"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755

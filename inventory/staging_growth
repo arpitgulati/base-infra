@@ -1,0 +1,11 @@
+[all:vars]
+env=staging_growth
+
+[local]
+avis-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3  hostname=fynd-avis-staging-growth-{}-{}
+orbis-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-orbis-staging-growth-{}-{}
+phoenix-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-phoenix-staging-growth-{}-{}
+phoenix-staging-growth-ci.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-phoenix-staging-growth-ci-{}-{}
+crucio-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-crucio-staging-growth-{}-{}
+crucio-staging-growth-2.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-crucio-staging-growth-2-{}-{}
+tergeo-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-tergeo-staging-growth-{}-{}

@@ -1,0 +1,62 @@
+---
+
+
+- name: Gather facts from all hosts
+  hosts: all
+
+- name: Create users
+  hosts: all
+
+  roles:
+    - role: users
+      become: true
+      become_user: root
+
+  vars_files:
+    - env_vars/credentials.yml
+
+- name: apply common configuration to all nodes
+  hosts:
+    - all
+  become: true
+  become_user: root
+
+  roles:
+    - common
+
+  vars_files:
+    - env_vars/base.yml
+    - env_vars/{{ env }}.yml
+    - env_vars/credentials.yml
+
+- name: install python versions
+  hosts:
+    - all
+  become: true
+  roles:
+    - python
+
+  vars_files:
+    - vars/python.yml
+    - env_vars/credentials.yml
+
+  tags:
+     - python
+
+- name: deploy and configure Node exporter for prometheus
+  hosts:
+    - all
+
+  roles:
+    - prometheus
+
+  become: true
+
+  vars_files:
+    - env_vars/base.yml
+    - env_vars/{{ env }}.yml
+    - env_vars/credentials.yml
+    - vars/node_exporter.yml
+
+  tags:
+    - node_exporter

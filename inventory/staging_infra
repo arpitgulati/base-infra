@@ -1,0 +1,8 @@
+[all:vars]
+env=staging_infra
+
+[local]
+52.66.28.171 hostname=fynd-infra-staging-routing-layer-{}-{}
+portkey-staging1.addsale.com hostname=fynd-infra-staging-kafka-broker1-{}-{}
+portkey-staging2.addsale.com hostname=fynd-infra-staging-kafka-broker2-{}-{}
+zookeeper-staging-1.addsale.com hostname=fynf-infra-staging-zookeeper1-{}-{}

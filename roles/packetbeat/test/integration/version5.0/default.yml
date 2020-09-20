@@ -1,0 +1,7 @@
+- name: test packetbeat 5.0.0 install
+  hosts: all
+  sudo: yes
+  vars:
+    packetbeat_version: 5.0.0
+  roles:
+    - ansible-packetbeat

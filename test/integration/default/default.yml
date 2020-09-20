@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  roles:
+    - users
+    - common
+    - knopki.locale
+    - python
+    - fail2ban
+    - filebeat
+    - metricbeat
+    - packetbeat
+  vars_files:
+    - group_vars/base.yml
+    - group_vars/vagrant.yml
+    - group_vars/credentials.yml
+    - vars/locale.yml
+    - vars/python.yml

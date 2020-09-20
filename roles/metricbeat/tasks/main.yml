@@ -1,0 +1,34 @@
+---
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: create metricbeat.yml
+  template:
+    src: metricbeat.yml.j2
+    dest: /etc/metricbeat/metricbeat.yml
+  notify:
+    - restart metricbeat
+  tags:
+    - update_metricbeat_config
+
+- name: copy ca certificate if required
+  copy:
+    content: "{{ metricbeat_ca_cert }}"
+    dest: "{{ metricbeat_ca_path }}"
+    owner: root
+    group: root
+    mode: 0400
+  when: metricbeat_ca_cert != None
+
+- name: flush handlers to prevent start then restart
+  meta: flush_handlers
+  tags:
+    - update_metricbeat_config
+
+- name: start and enable metricbeat
+  service:
+    name: metricbeat
+    state: started
+    enabled: true
+  tags:
+    - update_metricbeat_config

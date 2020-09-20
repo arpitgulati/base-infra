@@ -1,0 +1,112 @@
+---
+# The contents of this variable will be placed into the `filebeat_ca_path`
+# This should either be set to a string containing your CA certificate or
+# use a lookup plugin to retrieve it.
+#  ex:
+#   filebeat_ca_cert: "{{ lookup('file', '/path/to/ca.crt') }}"
+filebeat_ca_cert: null
+# Path to which the above certificate will be uploaded
+filebeat_ca_path: /etc/filebeat/ca.crt
+logstash_proxy_url: null
+# The version of filebeat to install
+filebeat_version: 6.1
+# `filebeat_config` is templated directly into filebeat.yml for the config.
+# You are expected to override this variable, as these configurations are
+# only suited for development purposes.
+# See https://github.com/elastic/filebeat/blob/master/etc/filebeat.yml for
+# an exhaustive list of configurations.
+filebeat_config:
+############################# Filebeat #####################################
+  filebeat:
+    prospectors:
+      -
+        paths:
+          - "{{ logs_base_path }}/*.json"
+        fields:
+          logzio_codec: json
+          token: "{{logzio_token}}"
+          type: ec2
+          environment: "{{ env | default('dev')}}"
+        fields_under_root: true
+        encoding: utf-8
+        ignore_older: 3h
+        json.add_error_key: true
+        json.keys_under_root: true
+        json.message_key: msg
+
+    registry_file: /var/lib/filebeat/registry
+############################# Output ##########################################
+  output:
+    logstash:
+      hosts: ["{{logstash_proxy_url}}"]
+
+#  The below configuration is used for Filebeat 5.0 or higher
+      ssl:
+        certificate_authorities: ["{{ filebeat_ca_path }}"]
+#================================ Logging ======================================
+  logging.level: error
+  logging.metrics.enabled: true
+  logging.metrics.period: 30s
+  logging.to_files: true
+  logging.files:
+    path: /var/log/filebeat
+    name: filebeat.log
+    rotateeverybytes: 10485760 # = 10MB
+    keepfiles: 50
+    permissions: 0600
+  logging.json: true
+
+# Repository settings
+filebeat_gpg_url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+## Debian
+filebeat_apt_repo_v1: "deb https://packages.elastic.co/beats/apt stable main"
+filebeat_apt_repo_v5: "deb https://artifacts.elastic.co/packages/5.x/apt stable main"
+filebeat_apt_repo_v6: "deb https://artifacts.elastic.co/packages/6.x/apt stable main"
+filebeat_apt_repo: "{{ filebeat_version|version_compare('5', '>')|ternary(filebeat_apt_repo_v5, filebeat_apt_repo_v6) }}"
+## Redhat
+filebeat_repo_url_v1: https://packages.elastic.co/beats/yum/el/$basearch
+filebeat_repo_url_v5: https://artifacts.elastic.co/packages/5.x/yum
+filebeat_repo_url: "{{ filebeat_version|version_compare('5', '>')|ternary(filebeat_repo_url_v1, filebeat_repo_url_v5) }}"
+
+#kafka_brokers: ["10.0.0.13:9092", "10.0.0.14:9092", "10.0.128.15:9092"]
+filebeat_kafka_enabled: false
+kafka_brokers: []
+filebeat_kafka_config:
+  filebeat:
+    prospectors:
+    - paths:
+      - /var/log/fynd/kafka/trace_meta.json
+      encoding: utf-8
+      fields:
+        type: kafka
+      fields_under_root: true
+      ignore_older: 8h
+      json.add_error_key: true
+      json.keys_under_root: true
+    registry_file: /var/lib/filebeat/kafka_registry
+  logging.files:
+    keepfiles: 50
+    name: filebeat_kafka.log
+    path: /var/log/filebeat
+    permissions: 384
+    rotateeverybytes: 10485760
+  logging.json: true
+  logging.level: error
+  logging.metrics.enabled: true
+  logging.metrics.period: 30s
+  logging.to_files: true
+  output:
+    kafka:
+      # initial brokers for reading cluster metadata
+      enabled: true
+      hosts: "{{kafka_brokers}}"
+
+      # message topic selection + partitioning
+      topic: fynd-json-trace-tracking
+      partition.round_robin:
+        reachable_only: false
+      required_acks: 1
+      compression: gzip
+      max_message_bytes: 1000000
+      metadata:
+        retry.max: 1

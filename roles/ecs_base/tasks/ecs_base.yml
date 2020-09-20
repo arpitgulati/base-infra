@@ -1,0 +1,40 @@
+---
+
+# reference resource https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-install.html#ecs-agent-install-nonamazonlinux
+
+- name: allow the port proxy to route traffic using loopback addresses
+  shell: "sh -c \"echo 'net.ipv4.conf.all.route_localnet = 1' >> /etc/sysctl.conf\" &&   sysctl -p /etc/sysctl.conf"
+  args:
+    executable: /bin/bash
+  become: yes
+
+- name: enable IAM roles for tasks
+  shell: "iptables -t nat -A PREROUTING -p tcp -d 169.254.170.2 --dport 80 -j DNAT --to-destination 127.0.0.1:51679 &&  iptables -t nat -A OUTPUT -d 169.254.170.2 -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 51679"
+  args:
+    executable: /bin/bash
+  become: yes
+
+- name: write the new iptables configuration to your operating system-specific location
+  # done here for ubuntu
+  shell: "sh -c 'iptables-save > /etc/iptables/rules.v4'"
+  args:
+    executable: /bin/bash
+  become: yes
+
+- name: create the /etc/ecs directory and create the Amazon ECS container agent configuration file.
+  shell: "mkdir -p /etc/ecs &&  touch /etc/ecs/ecs.config"
+  args:
+    executable: /bin/bash
+  become: yes
+
+- name: edit the /etc/ecs/ecs.config file
+  shell: "echo -e 'ECS_DATADIR=/data\nECS_ENABLE_TASK_IAM_ROLE=true\nECS_ENABLE_TASK_IAM_ROLE_NETWORK_HOST=true\nECS_LOGFILE=/log/ecs-agent.log\nECS_AVAILABLE_LOGGING_DRIVERS=[\"json-file\",\"awslogs\"]\nECS_LOGLEVEL=info' >> /etc/ecs/ecs.config "
+  args:
+    executable: /bin/bash
+  become: yes
+
+- name: pull and run the latest Amazon ECS container agent
+  shell: "docker pull amazon/amazon-ecs-agent:{{ ecs_agent_version }}"
+  args:
+    executable: /bin/bash
+  become: yes

@@ -1,0 +1,4 @@
+python_version: 3.6
+python_version_tag: 3.6.1
+python_download_url: https://www.python.org/ftp/python/{{ python_version_tag }}/Python-{{ python_version_tag }}.tgz
+python_download_folder: /tmp/Python-{{ python_version_tag }}

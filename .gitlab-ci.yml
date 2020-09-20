@@ -1,0 +1,19 @@
+---
+image: "ubuntu:16.04"
+
+variables:
+  ANSIBLE_VERSION: "2.2.1"
+
+before_script:
+  - apt-get update
+  - apt-get -y install sudo git libffi-dev python3-pip python-dev libssl-dev
+  - pip3 install --upgrade setuptools
+  - pip3 install ansible==$ANSIBLE_VERSION cryptography
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+test:
+  script:
+  - "echo ${ANSIBLE_PASS} >> vault_pass.txt"
+  - "ansible-playbook -i localhost, test/test.yml --vault-password-file vault_pass.txt --syntax-check"
+  - "ansible-playbook -i localhost, test/test.yml --vault-password-file vault_pass.txt --connection=local --skip-tags 'packages,timezone,ssh,hostname,disable_update' --extra-vars 'new_hostname=localhost' -vvv"
+  - "rm vault_pass.txt"

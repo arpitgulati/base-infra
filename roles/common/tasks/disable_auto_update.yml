@@ -1,0 +1,8 @@
+- name: disable auto update service
+  when: disable_auto_update
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+  with_items:
+    - apt-daily.service
+    - apt-daily.timer

@@ -1,0 +1,43 @@
+---
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: create filebeat.yml
+  template:
+    src: filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+  notify:
+    - restart filebeat
+  tags:
+    - update_filebeat_config
+
+- name: copy ca certificate if required
+  copy:
+    content: "{{ filebeat_ca_cert }}"
+    dest: "{{ filebeat_ca_path }}"
+    owner: root
+    group: root
+    mode: 0400
+  when: filebeat_ca_cert != None
+
+- name: flush handlers to prevent start then restart
+  meta: flush_handlers
+  tags:
+    - update_filebeat_config
+
+- name: start and enable filebeat
+  service:
+    name: filebeat
+    state: started
+    enabled: true
+  tags:
+    - update_filebeat_config
+
+- name: Manually enable filebeat
+  shell: systemctl enable filebeat.service
+  tags:
+    - update_filebeat_config
+
+- name: Include filebeat kafka
+  include: trace_filebeat.yml
+  when: filebeat_kafka_enabled

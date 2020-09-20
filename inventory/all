@@ -1,0 +1,69 @@
+[local]
+35.154.193.150 hostname=fynd-jetfire-prod
+zookeeper-staging-1.addsale.com hostname=zk-node-1
+portkey-staging-1.addsale.com hostname=kafka-node-1
+portkey-staging-2.addsale.com hostname=kafka-node-2
+avis-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3  hostname=fynd-avis-staging-growth
+orbis-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-orbis-staging-growth
+phoenix-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-phoenix-staging-growth
+phoenix-staging-growth-ci.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-phoenix-staging-growth-ci
+crucio-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-crucio-staging-growth
+crucio-staging-growth-2.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-crucio-staging-growth-2
+tergeo-staging-growth.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-tergeo-staging-growth
+avis-staging-orders.addsale.com ansible_python_interpreter=/usr/bin/python3  hostname=fynd-avis-staging-orders
+orbis-staging-orders.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-orbis-staging-orders
+tergeo-staging-orders.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-tergeo-staging-orders
+inventory-staging-orders.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-inventory-staging-orders
+avis-staging-vision.addsale.com ansible_python_interpreter=/usr/bin/python3  hostname=fynd-avis-staging-vision
+orbis-staging-vision.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-orbis-staging-vision
+tergeo-staging-vision.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-tergeo-staging-vision
+interfaces-playground.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-inventory-staging-vision
+dragon-staging-vision.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-dragon-staging-vision
+ci-staging-vision.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-ci-staging-vision
+redis-staging-reco.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-redis-staging-reco
+avis-staging-reco.addsale.com ansible_python_interpreter=/usr/bin/python3  hostname=fynd-avis-staging-reco
+orbis-staging-reco.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-orbis-staging-reco
+web-staging2.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-web-staging-reco
+tergeo-staging-reco.addsale.com ansible-python_interpreter=/usr/bin/python3 hostname=fynd-tergeo-staging-reco
+
+orbis-pre.gofynd.com
+orbis-db1-pre.gofynd.com
+orbis-mongo-r1-pre.gofynd.com
+orbis-internal-pre.gofynd.com
+avis-pre.gofynd.com
+avis-internal-pre.gofynd.com
+alohomora-pre.gofynd.com
+hedwig-pre.gofynd.com
+episkey-pre.gofynd.com
+avis-db1-pre.gofynd.com
+cc-pre.gofynd.com
+reco-redis-pre.gofynd.com
+web-pre.addsale.com
+tergeo-pre.gofynd.com
+
+protego.addsale.com
+logger.addsale.com
+
+
+
+[inventory]
+inventory.gofynd.com
+interfaces-config-db1.gofynd.com
+interfaces-config-db2.gofynd.com
+inventory-cloud.gofynd.com
+inventory-db1.gofynd.com
+artifactory.gofynd.com
+looper.gofynd.com
+vision-config.gofynd.com
+workbench.gofynd.com
+workbench-db1.gofynd.com
+workbench-db2.gofynd.com
+picsor.vision.gofynd.com
+
+[vision]
+tergeo.gofynd.com
+tergeo-db1.gofynd.com
+tergeo-db2.gofynd.com
+vision.gofynd.com
+
+vision-beast.gofynd.com

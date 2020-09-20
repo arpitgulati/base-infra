@@ -1,0 +1,5 @@
+---
+
+- name: start logzio
+  hosts: webservers
+  include: systemd_logzio.yml

@@ -1,0 +1,44 @@
+- stat: path=/usr/local/bin/python{{python_version }}
+  register: python
+
+- get_url:
+    url: "{{ python_download_url }}"
+    dest: /tmp
+    mode: 0440
+  when: not python.stat.exists
+
+- name: untar the archive file
+  shell: tar -xvf /tmp/Python-{{ python_version_tag }}.tgz -C /tmp
+  when: not python.stat.exists
+
+- name: configure
+  shell: ./configure
+  args:
+    chdir: "{{ python_download_folder }}"
+  when: not python.stat.exists
+
+- name: make
+  shell: make
+  args:
+    chdir: "{{ python_download_folder }}"
+  when: not python.stat.exists
+
+- name: make altinstall
+  shell: make altinstall
+  args:
+    chdir: "{{ python_download_folder }}"
+  when: not python.stat.exists
+
+- name: install pip3 via apt
+  apt: name=python3-pip update_cache=yes state=installed
+
+- name: install pip via apt
+  apt: name=python-pip update_cache=yes state=installed
+
+- name: Install base python packages in python 2.7
+  pip: name={{item}} state=present executable=/usr/bin/pip
+  with_items: "{{ python_2_base_packages }}"
+
+- name: Install base python packages in python 3.6
+  pip: name={{item}} state=present executable=/usr/bin/pip3
+  with_items: "{{ python_3_base_packages }}"
