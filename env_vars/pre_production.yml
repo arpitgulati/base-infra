@@ -1,7 +1,2 @@
 ---
-newrelic_license_key: 79c6aa01016a9d49f2f17196aebeb8e490dd654b
-logzio_token: siUxlNcKoQVLurtWkEMVvovDTKOFnAZN
 ssm_env: pre-production
-aws_region: us-east-2
-kafka_brokers: ["10.0.0.13:9092", "10.0.0.14:9092", "10.0.128.15:9092"]
-filebeat_kafka_enabled: true

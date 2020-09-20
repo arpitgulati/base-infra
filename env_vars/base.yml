@@ -1,11 +1,4 @@
-logs_base_path: /var/log/fynd
-elasticsearch_proxy_url: "http://fidelius-filebeat.addsale.com:80"
-
-logzio_ca_certs_path: /etc/pki/tls/certs
 disable_auto_update: true
-logstash_proxy_url: "listener.logz.io:5015"
 # pass ssm variable from out side as extra vars
-ssm_server: test
-ssm_service: test
 ssm_env: dev
 aws_region: us-east-2

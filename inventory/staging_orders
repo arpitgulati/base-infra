@@ -1,7 +1,0 @@
-[all:vars]
-env=staging_orders
-
-[local]
-avis-staging-orders.addsale.com ansible_python_interpreter=/usr/bin/python3  hostname=fynd-avis-staging-orders-{}-{}
-orbis-staging-orders.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-orbis-staging-orders-{}-{}
-tergeo-staging-orders.addsale.com ansible_python_interpreter=/usr/bin/python3 hostname=fynd-tergeo-staging-orders-{}-{}
